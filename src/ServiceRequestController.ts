@@ -53,6 +53,7 @@ export class ServiceRequestController {
     const { SPREADSHEET_ID, CLIENT_EMAIL, PRIVATE_KEY } = process.env;
 
     if (!SPREADSHEET_ID || !CLIENT_EMAIL || !PRIVATE_KEY) {
+      return;
       throw new Error("Не найдены необходимые переменные окружения");
     }
 
