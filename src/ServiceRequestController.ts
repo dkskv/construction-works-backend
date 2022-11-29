@@ -16,7 +16,7 @@ export class ServiceRequestController {
 
   constructor(private router: Router) {
     this.defineRoute();
-    this.connectToGoogleSheet();
+    // this.connectToGoogleSheet();
   }
 
   private defineRoute() {
@@ -53,7 +53,6 @@ export class ServiceRequestController {
     const { SPREADSHEET_ID, CLIENT_EMAIL, PRIVATE_KEY } = process.env;
 
     if (!SPREADSHEET_ID || !CLIENT_EMAIL || !PRIVATE_KEY) {
-      return;
       throw new Error("Не найдены необходимые переменные окружения");
     }
 
