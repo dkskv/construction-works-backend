@@ -56,21 +56,25 @@ export class ServiceRequestController {
       throw new Error("Не найдены необходимые переменные окружения");
     }
 
-    try {
-      const document = new GoogleSpreadsheet(SPREADSHEET_ID);
+    const document = new GoogleSpreadsheet(SPREADSHEET_ID);
 
+    try {
       await document.useServiceAccountAuth({
         client_email: CLIENT_EMAIL,
         private_key: PRIVATE_KEY,
       });
+    } catch (e) {
+      throw new Error("Не удалось авторизоваться в GoogleSpreadsheet");
+    }
 
+    try {
       await document.loadInfo();
-
-      this.googleSheet = document.sheetsByIndex[0];
     } catch (e) {
       throw new Error(
-        "Не удалось установить подключение с GoogleSpreadsheet;" + String(e)
+        "Не удалось загрузить информацию о GoogleSpreadsheet документе"
       );
     }
+
+    this.googleSheet = document.sheetsByIndex[0];
   }
 }

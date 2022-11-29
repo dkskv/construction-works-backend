@@ -1,7 +1,10 @@
 import express from "express";
 import bodyParser from "body-parser";
 import { ServiceRequestController } from "../src/ServiceRequestController";
+// @ts-ignore
+import { config } from "dotenv";
 
+config();
 const app = express();
 const router = express.Router();
 
