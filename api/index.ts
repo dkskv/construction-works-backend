@@ -16,6 +16,6 @@ router.get("/api/hello", function (_, res) {
   res.status(200).send("api hello!");
 });
 
-new ServiceRequestController(router);
+// new ServiceRequestController(router);
 
 app.listen(4000);
