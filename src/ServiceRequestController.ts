@@ -38,7 +38,7 @@ export class ServiceRequestController {
 
   private async save(data: IRequestData) {
     if (!this.googleSheet) {
-      throw new Error();
+      throw new Error("Не установлено подключение с GoogleSpreadsheet");
     }
 
     return this.googleSheet.addRow({
@@ -68,7 +68,7 @@ export class ServiceRequestController {
 
       this.googleSheet = document.sheetsByIndex[0];
     } catch (e) {
-      console.error(e);
+      throw new Error("Не удалось установить подключение с GoogleSpreadsheet");
     }
   }
 }
