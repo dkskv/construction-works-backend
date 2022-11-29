@@ -1,14 +1,14 @@
 import express from "express";
 import bodyParser from "body-parser";
+import { ServiceRequestController } from "../src/ServiceRequestController";
 
 const app = express();
 const router = express.Router();
+
 app.use(bodyParser.json());
 app.use("/", router);
 
-router.get("/hello", function (_, res) {
-  res.status(200).send("hello!");
-});
+new ServiceRequestController(router);
 
 router.get("/api", function (_, res) {
   res.status(200).send("api!");
