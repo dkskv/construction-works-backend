@@ -16,7 +16,7 @@ export class ServiceRequestController {
 
   constructor(private router: Router) {
     this.defineRoute();
-    // this.connectToGoogleSheet();
+    this.connectToGoogleSheet();
   }
 
   private defineRoute() {
