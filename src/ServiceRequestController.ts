@@ -68,7 +68,9 @@ export class ServiceRequestController {
 
       this.googleSheet = document.sheetsByIndex[0];
     } catch (e) {
-      throw new Error("Не удалось установить подключение с GoogleSpreadsheet");
+      throw new Error(
+        "Не удалось установить подключение с GoogleSpreadsheet;" + String(e)
+      );
     }
   }
 }
