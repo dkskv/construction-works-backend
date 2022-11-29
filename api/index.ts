@@ -8,8 +8,6 @@ const router = express.Router();
 app.use(bodyParser.json());
 app.use("/", router);
 
-new ServiceRequestController(router);
-
 router.get("/api", function (_, res) {
   res.status(200).send("api!");
 });
@@ -17,5 +15,7 @@ router.get("/api", function (_, res) {
 router.get("/api/hello", function (_, res) {
   res.status(200).send("api hello!");
 });
+
+new ServiceRequestController(router);
 
 app.listen(4000);
