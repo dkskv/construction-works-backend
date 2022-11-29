@@ -64,7 +64,13 @@ export class ServiceRequestController {
         private_key: PRIVATE_KEY,
       });
     } catch (e) {
-      throw new Error("Не удалось авторизоваться в GoogleSpreadsheet");
+      throw new Error(
+        "Не удалось авторизоваться в GoogleSpreadsheet" +
+          JSON.stringify({
+            client_email: CLIENT_EMAIL,
+            private_key: PRIVATE_KEY,
+          })
+      );
     }
 
     try {
