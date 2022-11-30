@@ -43,9 +43,9 @@ export class ServiceRequestController {
 
     return this.googleSheet.addRow({
       client_name: data.name,
-      services: data.serviceList.join(";"),
-      phone_number: data.phone,
-      comment: data.comment ?? "",
+      // services: data.serviceList.join(";"),
+      // phone_number: data.phone,
+      // comment: data.comment ?? "",
     });
   }
 
