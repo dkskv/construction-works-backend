@@ -52,18 +52,26 @@ export class ServiceRequestController {
   }
 
   private async connectToGoogleSheet() {
-    const { SPREADSHEET_ID, CLIENT_EMAIL, PRIVATE_KEY } = process.env;
+    const {
+      GOOGLE_SPREADSHEET_ID,
+      GOOGLE_SERVICES_CLIENT_EMAIL,
+      GOOGLE_SERVICES_PRIVATE_KEY,
+    } = process.env;
 
-    if (!SPREADSHEET_ID || !CLIENT_EMAIL || !PRIVATE_KEY) {
+    if (
+      !GOOGLE_SPREADSHEET_ID ||
+      !GOOGLE_SERVICES_CLIENT_EMAIL ||
+      !GOOGLE_SERVICES_PRIVATE_KEY
+    ) {
       throw new Error("Не найдены необходимые переменные окружения");
     }
 
-    const document = new GoogleSpreadsheet(SPREADSHEET_ID);
+    const document = new GoogleSpreadsheet(GOOGLE_SPREADSHEET_ID);
 
     try {
       await document.useServiceAccountAuth({
-        client_email: CLIENT_EMAIL,
-        private_key: PRIVATE_KEY.replace(/\\n/g, "\n"),
+        client_email: GOOGLE_SERVICES_CLIENT_EMAIL,
+        private_key: GOOGLE_SERVICES_PRIVATE_KEY.replace(/\\n/g, "\n"),
       });
     } catch (e) {
       throw new Error("Не удалось авторизоваться в GoogleSpreadsheet");
