@@ -30,13 +30,10 @@ export class ServiceRequestController {
         .then(() => {
           res.status(200).send({ message: "ok" });
         })
-        .catch((e) => {
-          res
-            .status(500)
-            .send({
-              message:
-                "failed to save" + JSON.stringify(process.env.PRIVATE_KEY),
-            });
+        .catch(() => {
+          res.status(500).send({
+            message: "failed to save",
+          });
         });
     });
   }
@@ -48,9 +45,9 @@ export class ServiceRequestController {
 
     return this.googleSheet.addRow({
       client_name: data.name,
-      // services: data.serviceList.join(";"),
-      // phone_number: data.phone,
-      // comment: data.comment ?? "",
+      services: data.serviceList.join(";"),
+      phone_number: data.phone,
+      comment: data.comment ?? "",
     });
   }
 
@@ -66,7 +63,7 @@ export class ServiceRequestController {
     try {
       await document.useServiceAccountAuth({
         client_email: CLIENT_EMAIL,
-        private_key: PRIVATE_KEY,
+        private_key: PRIVATE_KEY.replace(/\\n/g, "\n"),
       });
     } catch (e) {
       throw new Error("Не удалось авторизоваться в GoogleSpreadsheet");
