@@ -30,8 +30,10 @@ export class ServiceRequestController {
         .then(() => {
           res.status(200).send({ message: "ok" });
         })
-        .catch(() => {
-          res.status(500).send({ message: "failed to save" });
+        .catch((e) => {
+          res
+            .status(500)
+            .send({ message: "failed to save" + JSON.stringify(e.message) });
         });
     });
   }
