@@ -13,7 +13,7 @@ interface IRequestData {
 
 interface ITableRow
   extends Record<
-    "client_name" | "services" | "phone_number" | "time" | "comment",
+    "time" | "client_name" | "services" | "phone_number" | "comment",
     string
   > {}
 
@@ -54,11 +54,11 @@ export class ServiceRequestController {
     }
 
     const row: ITableRow = {
+      time: new Date().toLocaleString("ru-RU", { timeZone: "Europe/Moscow" }),
       client_name: data.name,
       services: data.serviceList.join(";"),
       phone_number: data.phone,
       comment: data.comment ?? "",
-      time: new Date().toLocaleString("ru-RU"),
     };
 
     return this.googleSheet.addRow(row);
