@@ -33,7 +33,10 @@ export class ServiceRequestController {
         .catch((e) => {
           res
             .status(500)
-            .send({ message: "failed to save" + JSON.stringify(e.message) });
+            .send({
+              message:
+                "failed to save" + JSON.stringify(process.env.PRIVATE_KEY),
+            });
         });
     });
   }
@@ -66,13 +69,7 @@ export class ServiceRequestController {
         private_key: PRIVATE_KEY,
       });
     } catch (e) {
-      throw new Error(
-        "Не удалось авторизоваться в GoogleSpreadsheet" +
-          JSON.stringify({
-            client_email: CLIENT_EMAIL,
-            private_key: PRIVATE_KEY,
-          })
-      );
+      throw new Error("Не удалось авторизоваться в GoogleSpreadsheet");
     }
 
     try {
