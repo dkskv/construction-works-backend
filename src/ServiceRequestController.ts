@@ -22,17 +22,17 @@ export class ServiceRequestController {
   private defineRoute() {
     this.router.post("/api/service-request", (req, res) => {
       if (!req.body) {
-        res.status(400).send({ message: "body is missing" });
+        res.status(400).send({ message: "Body is missing" });
         return;
       }
 
       this.save(req.body as IRequestData)
         .then(() => {
-          res.status(200).send({ message: "ok" });
+          res.status(200).send({ message: "Ok" });
         })
         .catch(() => {
           res.status(500).send({
-            message: "failed to save",
+            message: "Failed to save",
           });
         });
     });
@@ -40,7 +40,7 @@ export class ServiceRequestController {
 
   private async save(data: IRequestData) {
     if (!this.googleSheet) {
-      throw new Error("Не установлено подключение с GoogleSpreadsheet");
+      throw new Error("Not connected to Google Spreadsheet");
     }
 
     return this.googleSheet.addRow({
@@ -63,7 +63,7 @@ export class ServiceRequestController {
       !GOOGLE_SERVICES_CLIENT_EMAIL ||
       !GOOGLE_SERVICES_PRIVATE_KEY
     ) {
-      throw new Error("Не найдены необходимые переменные окружения");
+      throw new Error("Required environment variables not found");
     }
 
     const document = new GoogleSpreadsheet(GOOGLE_SPREADSHEET_ID);
@@ -74,15 +74,13 @@ export class ServiceRequestController {
         private_key: GOOGLE_SERVICES_PRIVATE_KEY.replace(/\\n/g, "\n"),
       });
     } catch (e) {
-      throw new Error("Не удалось авторизоваться в GoogleSpreadsheet");
+      throw new Error("Failed to auth to Google Spreadsheet");
     }
 
     try {
       await document.loadInfo();
     } catch (e) {
-      throw new Error(
-        "Не удалось загрузить информацию о GoogleSpreadsheet документе"
-      );
+      throw new Error("Failed to load Google Spreadsheet document information");
     }
 
     this.googleSheet = document.sheetsByIndex[0];
