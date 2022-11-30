@@ -11,6 +11,12 @@ interface IRequestData {
   comment: string | null;
 }
 
+interface ITableRow
+  extends Record<
+    "client_name" | "services" | "phone_number" | "time" | "comment",
+    string
+  > {}
+
 export class ServiceRequestController {
   private googleSheet: GoogleSpreadsheetWorksheet | null = null;
 
@@ -47,12 +53,15 @@ export class ServiceRequestController {
       throw new Error("Not connected to Google Spreadsheet");
     }
 
-    return this.googleSheet.addRow({
+    const row: ITableRow = {
       client_name: data.name,
       services: data.serviceList.join(";"),
       phone_number: data.phone,
       comment: data.comment ?? "",
-    });
+      time: new Date().toLocaleString("ru-RU"),
+    };
+
+    return this.googleSheet.addRow(row);
   }
 
   private async connectToGoogleSheet() {
