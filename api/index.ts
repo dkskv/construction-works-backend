@@ -12,11 +12,7 @@ app.use(bodyParser.json());
 app.use("/", router);
 
 router.get("/api", function (_, res) {
-  res.status(200).send("api!");
-});
-
-router.get("/api/hello", function (_, res) {
-  res.status(200).send("api hello!");
+  res.status(200).send("api works!");
 });
 
 new ServiceRequestController(router);
