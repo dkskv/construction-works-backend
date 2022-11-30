@@ -40,6 +40,10 @@ export class ServiceRequestController {
 
   private async save(data: IRequestData) {
     if (!this.googleSheet) {
+      await this.connectToGoogleSheet();
+    }
+
+    if (!this.googleSheet) {
       throw new Error("Not connected to Google Spreadsheet");
     }
 
@@ -83,6 +87,12 @@ export class ServiceRequestController {
       throw new Error("Failed to load Google Spreadsheet document information");
     }
 
-    this.googleSheet = document.sheetsByIndex[0];
+    const sheet = document.sheetsByIndex[0];
+
+    if (!sheet) {
+      throw new Error("There is no sheet");
+    }
+
+    this.googleSheet = sheet;
   }
 }
