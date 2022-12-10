@@ -36,12 +36,8 @@ export class ConnectedSpreadsheet {
   }
 
   async sheetByIndex(index: number) {
+    await this.loadInfo();
     const sheet = this.document.sheetsByIndex[index];
-
-    // todo: подумать, можно ли избавиться
-    if (!sheet) {
-      await this.loadInfo();
-    }
 
     if (!sheet) {
       throw new Error("There is no sheet");
