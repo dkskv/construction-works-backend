@@ -25,7 +25,7 @@ export class ServiceListController {
   }
 
   private async getServiceList(): Promise<IService[]> {
-    const sheetRows = await (await this.getSheet()).getRows();
+    const sheetRows = await (await this.loadSheet()).getRows();
 
     return sheetRows.map(({ name, remark, description }) => ({
       name,
@@ -34,7 +34,7 @@ export class ServiceListController {
     }));
   }
 
-  private async getSheet() {
-    return await this.spreadsheet.sheetByIndex(0);
+  private async loadSheet() {
+    return await this.spreadsheet.loadSheetByIndex(0);
   }
 }

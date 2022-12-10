@@ -44,8 +44,8 @@ export class ServiceRequestController {
     });
   }
 
-  private async getSheet() {
-    return this.spreadsheet.sheetByIndex(0);
+  private async loadSheet() {
+    return this.spreadsheet.loadSheetByIndex(0);
   }
 
   private async save(data: Partial<IRequestData>) {
@@ -57,6 +57,6 @@ export class ServiceRequestController {
       comment: data.comment ?? "",
     };
 
-    (await this.getSheet()).addRow(row);
+    (await this.loadSheet()).addRow(row);
   }
 }

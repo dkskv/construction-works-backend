@@ -5,12 +5,7 @@ export class ConnectedSpreadsheet {
 
   constructor(id: string) {
     this.document = new GoogleSpreadsheet(id);
-    this.init();
-  }
-
-  private async init() {
-    await this.connect();
-    this.loadInfo();
+    this.connect();
   }
 
   private async connect() {
@@ -35,7 +30,7 @@ export class ConnectedSpreadsheet {
     await this.document.loadInfo();
   }
 
-  async sheetByIndex(index: number) {
+  async loadSheetByIndex(index: number) {
     await this.loadInfo();
     const sheet = this.document.sheetsByIndex[index];
 
