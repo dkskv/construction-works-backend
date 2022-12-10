@@ -18,7 +18,7 @@ export class AuthorizedSpreadsheet {
     }
 
     try {
-      await this.document.useServiceAccountAuth({
+      return await this.document.useServiceAccountAuth({
         client_email: GOOGLE_SERVICES_CLIENT_EMAIL,
         private_key: GOOGLE_SERVICES_PRIVATE_KEY.replace(/\\n/g, "\n"),
       });
@@ -28,11 +28,11 @@ export class AuthorizedSpreadsheet {
   }
 
   private async loadInfo() {
+    await this.authorization;
     await this.document.loadInfo();
   }
 
   async loadSheetByIndex(index: number) {
-    await this.authorization;
     await this.loadInfo();
     const sheet = this.document.sheetsByIndex[index];
 
