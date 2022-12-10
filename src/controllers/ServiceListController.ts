@@ -20,12 +20,14 @@ export class ServiceListController {
 
   private defineRoute(router: Router) {
     router.get("/api/service-list", async (_, res) => {
-      res.send(await this.getServiceList());
+      const serviceList = await this.getServiceList();
+      res.send(serviceList);
     });
   }
 
   private async getServiceList(): Promise<IService[]> {
-    const sheetRows = await (await this.loadSheet()).getRows();
+    const sheet = await this.loadSheet();
+    const sheetRows = await sheet.getRows();
 
     return sheetRows.map(({ name, remark, description }) => ({
       name,
@@ -34,7 +36,7 @@ export class ServiceListController {
     }));
   }
 
-  private async loadSheet() {
-    return await this.spreadsheet.loadSheetByIndex(0);
+  private loadSheet() {
+    return this.spreadsheet.loadSheetByIndex(0);
   }
 }

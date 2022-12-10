@@ -41,10 +41,6 @@ export class ServiceRequestController {
     });
   }
 
-  private async loadSheet() {
-    return await this.spreadsheet.loadSheetByIndex(0);
-  }
-
   private async save(data: Partial<IRequestData>) {
     const row: ITableRow = {
       time: new Date().toLocaleString("ru-RU", { timeZone: "Europe/Moscow" }),
@@ -54,6 +50,11 @@ export class ServiceRequestController {
       comment: data.comment ?? "",
     };
 
-    (await this.loadSheet()).addRow(row);
+    const sheet = await this.loadSheet();
+    return await sheet.addRow(row);
+  }
+
+  private loadSheet() {
+    return this.spreadsheet.loadSheetByIndex(0);
   }
 }
