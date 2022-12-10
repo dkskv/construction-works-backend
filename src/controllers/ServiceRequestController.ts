@@ -26,26 +26,23 @@ export class ServiceRequestController {
   }
 
   private defineRoute(router: Router) {
-    router.post("/api/service-request", ({ body }, res) => {
+    router.post("/api/service-request", async ({ body }, res) => {
       if (!body) {
         res.status(400).send({ message: "Body is missing" });
         return;
       }
 
-      this.save(body as IRequestData)
-        .then(() => {
-          res.status(200).send({ message: "Ok" });
-        })
-        .catch((e) => {
-          res.status(500).send({
-            message: "Failed to save because of: " + e.message,
-          });
-        });
+      try {
+        await this.save(body as IRequestData);
+        res.status(200).send({ message: "Ok" });
+      } catch (e) {
+        res.status(500).send({ message: "Failed to save" });
+      }
     });
   }
 
   private async loadSheet() {
-    return this.spreadsheet.loadSheetByIndex(0);
+    return await this.spreadsheet.loadSheetByIndex(0);
   }
 
   private async save(data: Partial<IRequestData>) {
