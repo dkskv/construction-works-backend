@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { ConnectedSpreadsheet } from "../utils/ConnectedSpreadsheet";
+import { AuthorizedSpreadsheet } from "../utils/AuthorizedSpreadsheet";
 import { idStore } from "../utils/IdStore";
 
 interface IRequestData {
@@ -16,11 +16,11 @@ interface ITableRow
   > {}
 
 export class ServiceRequestController {
-  private spreadsheet: ConnectedSpreadsheet;
+  private spreadsheet: AuthorizedSpreadsheet;
 
   constructor(router: Router) {
     this.defineRoute(router);
-    this.spreadsheet = new ConnectedSpreadsheet(
+    this.spreadsheet = new AuthorizedSpreadsheet(
       idStore.serviceRequestsSpreadsheetId
     );
   }

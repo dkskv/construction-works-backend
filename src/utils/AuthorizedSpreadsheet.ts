@@ -1,14 +1,15 @@
 import { GoogleSpreadsheet } from "google-spreadsheet";
 
-export class ConnectedSpreadsheet {
+export class AuthorizedSpreadsheet {
   private document: GoogleSpreadsheet;
+  private authorization: Promise<void>;
 
   constructor(id: string) {
     this.document = new GoogleSpreadsheet(id);
-    this.connect();
+    this.authorization = this.authorize();
   }
 
-  private async connect() {
+  private async authorize() {
     const { GOOGLE_SERVICES_CLIENT_EMAIL, GOOGLE_SERVICES_PRIVATE_KEY } =
       process.env;
 
@@ -31,6 +32,7 @@ export class ConnectedSpreadsheet {
   }
 
   async loadSheetByIndex(index: number) {
+    await this.authorization;
     await this.loadInfo();
     const sheet = this.document.sheetsByIndex[index];
 
