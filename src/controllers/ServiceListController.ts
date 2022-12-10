@@ -35,6 +35,6 @@ export class ServiceListController {
   }
 
   private async getSheet() {
-    return this.spreadsheet.sheetByIndex(0);
+    return await this.spreadsheet.sheetByIndex(0);
   }
 }
