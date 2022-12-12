@@ -3,8 +3,12 @@ import bodyParser from "body-parser";
 import { ServiceRequestController } from "../src/controllers/ServiceRequestController";
 // @ts-ignore
 import { config } from "dotenv";
-import { ServiceListController } from "../src/controllers/ServiceListController";
+import { ServicesController } from "../src/controllers/ServicesController";
 import cors from "cors";
+import { BenefitsController } from "../src/controllers/BenefitsController";
+import { CooperationStagesController } from "../src/controllers/CooperationStagesController";
+import { idStore } from "../src/utils/IdStore";
+import { AuthorizedSpreadsheet } from "../src/utils/AuthorizedSpreadsheet";
 
 config();
 const app = express();
@@ -18,7 +22,16 @@ router.get("/api", function (_, res) {
   res.status(200).send("api works!");
 });
 
-new ServiceRequestController(router);
-new ServiceListController(router);
+const requestSpreadsheet = new AuthorizedSpreadsheet(
+  idStore.serviceRequestsSpreadsheetId
+);
+const fetchSpreadsheet = new AuthorizedSpreadsheet(
+  idStore.serviceListSpreadsheetId
+);
+
+new ServiceRequestController(router, requestSpreadsheet);
+new ServicesController(router, fetchSpreadsheet);
+new BenefitsController(router, fetchSpreadsheet);
+new CooperationStagesController(router, fetchSpreadsheet);
 
 app.listen(4000);

@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { AuthorizedSpreadsheet } from "../utils/AuthorizedSpreadsheet";
-import { idStore } from "../utils/IdStore";
 
 interface IRequestData {
   serviceList: string[];
@@ -16,13 +15,8 @@ interface ITableRow
   > {}
 
 export class ServiceRequestController {
-  private spreadsheet: AuthorizedSpreadsheet;
-
-  constructor(router: Router) {
+  constructor(router: Router, private spreadsheet: AuthorizedSpreadsheet) {
     this.defineRoute(router);
-    this.spreadsheet = new AuthorizedSpreadsheet(
-      idStore.serviceRequestsSpreadsheetId
-    );
   }
 
   private defineRoute(router: Router) {
