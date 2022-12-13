@@ -1,6 +1,6 @@
 class IdStore {
-  get serviceListSpreadsheetId() {
-    return this.getStringFromEnv("SERVICE_LIST_SPREADSHEET_ID");
+  get contentSpreadsheetId() {
+    return this.getStringFromEnv("CONTENT_SPREADSHEET_ID");
   }
 
   get serviceRequestsSpreadsheetId() {

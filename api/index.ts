@@ -26,7 +26,7 @@ const requestSpreadsheet = new AuthorizedSpreadsheet(
   idStore.serviceRequestsSpreadsheetId
 );
 const fetchSpreadsheet = new AuthorizedSpreadsheet(
-  idStore.serviceListSpreadsheetId
+  idStore.contentSpreadsheetId
 );
 
 new ServiceRequestController(router, requestSpreadsheet);
