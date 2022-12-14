@@ -1,10 +1,15 @@
 import express from "express";
 import bodyParser from "body-parser";
-import { initControllers } from "../src/initControllers";
+// @ts-ignore
+import { config } from "dotenv";
+import cors from "cors";
+import { initControllers } from "./initControllers";
 
+config();
 const app = express();
 const router = express.Router();
+app.use(cors());
 app.use(bodyParser.json());
 app.use("/", router);
 initControllers(router);
-export default app;
+app.listen(4000);
