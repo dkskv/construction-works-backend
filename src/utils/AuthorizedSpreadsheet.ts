@@ -3,10 +3,12 @@ import { GoogleSpreadsheet } from "google-spreadsheet";
 export class AuthorizedSpreadsheet {
   private document: GoogleSpreadsheet;
   private authorization: Promise<void>;
+  private infoLoading: Promise<void>;
 
   constructor(id: string) {
     this.document = new GoogleSpreadsheet(id);
     this.authorization = this.authorize();
+    this.infoLoading = this.loadInfo();
   }
 
   private async authorize() {
@@ -33,7 +35,7 @@ export class AuthorizedSpreadsheet {
   }
 
   async loadSheetByName(name: string) {
-    await this.loadInfo();
+    await this.infoLoading;
     const sheet = this.document.sheetsByTitle[name];
 
     if (!sheet) {
@@ -44,7 +46,7 @@ export class AuthorizedSpreadsheet {
   }
 
   async loadSheetByIndex(index: number) {
-    await this.loadInfo();
+    await this.infoLoading;
     const sheet = this.document.sheetsByIndex[index];
 
     if (!sheet) {
