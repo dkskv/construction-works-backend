@@ -1,4 +1,3 @@
-import { AuthorizedSpreadsheet } from "../utils/AuthorizedSpreadsheet";
 import { FetchSheetRowsController } from "./FetchSheetRowsController";
 
 interface IService {
