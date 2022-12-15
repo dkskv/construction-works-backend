@@ -32,12 +32,23 @@ export class AuthorizedSpreadsheet {
     await this.document.loadInfo();
   }
 
+  async loadSheetByName(name: string) {
+    await this.loadInfo();
+    const sheet = this.document.sheetsByTitle[name];
+
+    if (!sheet) {
+      throw new Error("There is no sheet by name");
+    }
+
+    return sheet;
+  }
+
   async loadSheetByIndex(index: number) {
     await this.loadInfo();
     const sheet = this.document.sheetsByIndex[index];
 
     if (!sheet) {
-      throw new Error("There is no sheet");
+      throw new Error("There is no sheet by index");
     }
 
     return sheet;

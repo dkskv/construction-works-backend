@@ -12,8 +12,8 @@ export class CooperationStagesController extends FetchSheetRowsController<ICoope
     return "/api/cooperation-stages";
   }
 
-  protected loadSheet(spreadsheet: AuthorizedSpreadsheet) {
-    return spreadsheet.loadSheetByIndex(2);
+  protected get sheetName() {
+    return "CooperationStages";
   }
 
   protected buildRow({ name, icon, description }: any) {

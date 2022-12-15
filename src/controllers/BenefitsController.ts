@@ -12,8 +12,8 @@ export class BenefitsController extends FetchSheetRowsController<IBenefit> {
     return "/api/benefits";
   }
 
-  protected loadSheet(spreadsheet: AuthorizedSpreadsheet) {
-    return spreadsheet.loadSheetByIndex(1);
+  protected get sheetName() {
+    return "Benefits";
   }
 
   protected buildRow({ name, icon, description }: any) {

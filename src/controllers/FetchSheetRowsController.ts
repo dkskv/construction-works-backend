@@ -1,18 +1,15 @@
 import { Router } from "express";
-import { GoogleSpreadsheetWorksheet } from "google-spreadsheet";
 import { AuthorizedSpreadsheet } from "../utils/AuthorizedSpreadsheet";
 
 export abstract class FetchSheetRowsController<T> {
-  /** Url, по которому контроллер возвращает данные */
+  /** url-путь до контроллера */
   protected abstract get url(): string;
-  /** Загрузка конкретного листа из документа */
-  protected abstract loadSheet(
-    spreadsheet: AuthorizedSpreadsheet
-  ): Promise<GoogleSpreadsheetWorksheet>;
-  /** Построение строки на основе загруженных данных */
+  /** имя листа */
+  protected abstract get sheetName(): string;
+  /** построить объект строки на основе загруженных данных строки */
   protected abstract buildRow(data: any): T;
 
-  constructor(router: Router, private spreadsheet: AuthorizedSpreadsheet) {
+  constructor(router: Router, private document: AuthorizedSpreadsheet) {
     this.defineRoute(router);
   }
 
@@ -23,7 +20,7 @@ export abstract class FetchSheetRowsController<T> {
   }
 
   protected async fetchList(): Promise<T[]> {
-    const sheet = await this.loadSheet(this.spreadsheet);
+    const sheet = await this.document.loadSheetByName(this.sheetName);
     const sheetRows = await sheet.getRows();
     return sheetRows.map((data) => this.buildRow(data));
   }

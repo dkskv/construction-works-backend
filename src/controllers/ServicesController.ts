@@ -12,8 +12,8 @@ export class ServicesController extends FetchSheetRowsController<IService> {
     return "/api/services";
   }
 
-  protected loadSheet(spreadsheet: AuthorizedSpreadsheet) {
-    return spreadsheet.loadSheetByIndex(0);
+  protected get sheetName() {
+    return "Services";
   }
 
   protected buildRow({ name, remark, description }: any) {
