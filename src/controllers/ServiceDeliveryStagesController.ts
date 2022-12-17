@@ -1,18 +1,18 @@
 import { FetchSheetRowsController } from "./FetchSheetRowsController";
 
-interface ICooperationStage {
+interface IServiceDeliveryStage {
   name: string;
   icon: string;
   description: string;
 }
 
-export class CooperationStagesController extends FetchSheetRowsController<ICooperationStage> {
+export class ServiceDeliveryStagesController extends FetchSheetRowsController<IServiceDeliveryStage> {
   protected get url() {
-    return "/api/cooperation-stages";
+    return "/api/service-delivery-stages";
   }
 
   protected get sheetName() {
-    return "CooperationStages";
+    return "ServiceDeliveryStages";
   }
 
   protected buildRow({ name, icon, description }: any) {

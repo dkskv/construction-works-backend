@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { BenefitsController } from "./controllers/BenefitsController";
-import { CooperationStagesController } from "./controllers/CooperationStagesController";
+import { ServiceDeliveryStagesController } from "./controllers/ServiceDeliveryStagesController";
 import { ServiceRequestController } from "./controllers/ServiceRequestController";
 import { ServicesController } from "./controllers/ServicesController";
 import { AuthorizedSpreadsheet } from "./utils/AuthorizedSpreadsheet";
@@ -17,5 +17,5 @@ export function initControllers(router: Router) {
   new ServiceRequestController(router, serviceRequestsSpreadsheet);
   new ServicesController(router, contentSpreadsheet);
   new BenefitsController(router, contentSpreadsheet);
-  new CooperationStagesController(router, contentSpreadsheet);
+  new ServiceDeliveryStagesController(router, contentSpreadsheet);
 }
